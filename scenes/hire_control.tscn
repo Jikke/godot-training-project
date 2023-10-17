@@ -1,0 +1,173 @@
+[gd_scene load_steps=10 format=3 uid="uid://he47lj828xmt"]
+
+[ext_resource type="PackedScene" uid="uid://cxmuwyshfb70f" path="res://scenes/element_list.tscn" id="1_6peat"]
+[ext_resource type="Script" path="res://scripts/hire_control.gd" id="1_vcky4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rltcm"]
+bg_color = Color(0.294118, 0.309804, 0.419608, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61vkt"]
+bg_color = Color(0.6, 0.298039, 0.6, 0.392157)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lkjru"]
+bg_color = Color(0.6, 0.298039, 0.6, 0.490196)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sb05y"]
+bg_color = Color(0.6, 0.298039, 0.6, 0.686275)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h68dh"]
+bg_color = Color(0.6, 0.298039, 0.6, 0.392157)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mpc2o"]
+bg_color = Color(0.6, 0.298039, 0.6, 0.490196)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pxg2u"]
+bg_color = Color(0.6, 0.298039, 0.6, 0.686275)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="HireMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vcky4")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rltcm")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 100
+text = "Hiring"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Name-title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+horizontal_alignment = 1
+
+[node name="Price-title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Price"
+horizontal_alignment = 1
+
+[node name="Hitpoints-title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Hitpoints"
+horizontal_alignment = 1
+
+[node name="Power-title" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Power"
+horizontal_alignment = 1
+
+[node name="Hiring List" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("1_6peat")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="Hire Button" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_61vkt")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lkjru")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_sb05y")
+text = "Hire
+"
+
+[node name="Return Button" type="Button" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+focus_mode = 0
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_h68dh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_mpc2o")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_pxg2u")
+text = "Return
+"
+
+[connection signal="button_up" from="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/MarginContainer3/Hire Button" to="." method="_on_hire_button_button_up"]
+[connection signal="button_up" from="PanelContainer/MarginContainer/Return Button" to="." method="_on_return_button_button_up"]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=7 format=3 uid="uid://cudtv83ohvb31"]
+
+[ext_resource type="Script" path="res://scripts/root.gd" id="1_a7152"]
+[ext_resource type="PackedScene" uid="uid://he47lj828xmt" path="res://scenes/hire_control.tscn" id="1_oxhb0"]
+[ext_resource type="PackedScene" uid="uid://drj1yi617kl5q" path="res://scenes/game_control.tscn" id="2_3b4nl"]
+[ext_resource type="PackedScene" uid="uid://b51lnxkw8w5uf" path="res://scenes/main_control.tscn" id="3_453q7"]
+[ext_resource type="PackedScene" uid="uid://cbtv70an2evs0" path="res://UI/ui.tscn" id="4_dgik5"]
+[ext_resource type="PackedScene" uid="uid://cpi85vvsaitq3" path="res://scenes/levels/level1.tscn" id="5_1opwt"]
+
+[node name="root" type="Node2D"]
+script = ExtResource("1_a7152")
+
+[node name="Scenes" type="CanvasLayer" parent="."]
+
+[node name="Level1" parent="Scenes" instance=ExtResource("5_1opwt")]
+
+[node name="HireMenu" parent="Scenes" instance=ExtResource("1_oxhb0")]
+
+[node name="GameMenu" parent="Scenes" instance=ExtResource("2_3b4nl")]
+
+[node name="MainMenu" parent="Scenes" instance=ExtResource("3_453q7")]
+
+[node name="UI" parent="." instance=ExtResource("4_dgik5")]

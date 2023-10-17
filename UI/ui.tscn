@@ -1,0 +1,29 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbtv70an2evs0"]
+
+[ext_resource type="Script" path="res://UI/ui.gd" id="1_gpw14"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_gpw14")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Money-title" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "Money:"
+
+[node name="Money-amount" type="Label" parent="Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"

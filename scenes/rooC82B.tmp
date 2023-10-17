@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cudtv83ohvb31"]
+
+[ext_resource type="PackedScene" uid="uid://he47lj828xmt" path="res://scenes/hire_control.tscn" id="1_oxhb0"]
+[ext_resource type="PackedScene" uid="uid://drj1yi617kl5q" path="res://scenes/game_control.tscn" id="2_3b4nl"]
+[ext_resource type="PackedScene" uid="uid://b51lnxkw8w5uf" path="res://scenes/main_control.tscn" id="3_453q7"]
+[ext_resource type="PackedScene" uid="uid://cbtv70an2evs0" path="res://UI/ui.tscn" id="4_dgik5"]
+
+[node name="root" type="Node2D"]
+
+[node name="Scenes" type="CanvasLayer" parent="."]
+
+[node name="HireMenu" parent="Scenes" instance=ExtResource("1_oxhb0")]
+
+[node name="GameMenu" parent="Scenes" instance=ExtResource("2_3b4nl")]
+
+[node name="MainMenu" parent="Scenes" instance=ExtResource("3_453q7")]
+
+[node name="UI" parent="." instance=ExtResource("4_dgik5")]
+
+[connection signal="started_battle" from="Scenes/GameMenu" to="UI" method="_on_game_menu_started_battle"]
