@@ -8,7 +8,7 @@ func _on_new_game_button_button_up():
 	delete_and_wipe()
 	Global.goto_scene("res://scenes/game_control.tscn")
 	Global.generate_shop_content(30)
-	Global.money = 1000
+	Global.update_money(1000)
 
 func _on_continue_button_button_up():
 	Global.load_data()

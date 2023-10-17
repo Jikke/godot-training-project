@@ -6,10 +6,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	%"Money-amount".text = str(Global.money)
-#	match Global.ui_type:
-#		"menu": show_money()
-#		"battle": hide_money()
+	pass
+
+func update_money_text(amount):
+	%"Money-amount".text = str(amount)
 
 func hide_money():
 	$"Control/HBoxContainer/Money-title".hide()

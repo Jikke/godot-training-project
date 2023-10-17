@@ -35,6 +35,10 @@ func wipe_game():
 	current_team = []
 	pass
 
+func update_money(amount):
+	Global.money = amount
+	ui.update_money_text(amount)
+
 func goto_scene(path):
 	# This function will usually be called from a signal callback,
 	# or some other function in the current scene.

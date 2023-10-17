@@ -13,7 +13,8 @@ func _on_hire_button_button_up() -> void:
 	var selected_rows = %"Hiring List".currently_selected_rows
 	var total_price = self.check_price(selected_rows)
 	if total_price != -1:
-		Global.money -= total_price
+		var leftover_money = Global.money - total_price
+		Global.update_money(leftover_money)
 	else:
 		print("Not enough money!")
 		return
