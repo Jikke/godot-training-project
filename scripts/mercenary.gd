@@ -3,7 +3,7 @@ extends CharacterBody2D
 var tile_size : int = 16
 var turn : bool = false
 var moving : bool = false
-var move_speed : int = 1
+var move_speed : int = 2
 
 var left : int = 0
 var right : int = 0
@@ -19,11 +19,9 @@ var current_colliders : Dictionary = {}
 var current_direction : String = ""
 
 signal started_moving
-signal finished_action
+signal finished_moving
 signal move_input_received
 signal turn_done
-
-# LISÄÄ VERSIOHALLINTAAN NYKYINEN VERSIO. LIIKKUMINEN JA VUOROJENJAKELU TUNTUU TOIMIVAN. TAPPELU EI KUNNOLLA.
 
 func _ready():
 	$TextureRect.texture = texture
@@ -73,7 +71,8 @@ func play_turn():
 	self.current_colliders = self.get_collision_targets()
 	await move_input_received
 	execute_action()
-	await finished_action
+	if moving:
+		await finished_moving
 	end_turn()
 
 func movement():
@@ -91,12 +90,12 @@ func movement():
 			if right != 0:
 				global_position.x += move_speed
 				right -= move_speed
-			await get_tree().create_timer(0.001).timeout
+			await get_tree().create_timer(0.01).timeout
 		moving = false
 
 func _on_started_moving():
 	await movement()
-	finished_action.emit()
+	finished_moving.emit()
 
 func get_collision_targets() -> Dictionary:
 	var colliders : Dictionary = {}
@@ -118,10 +117,10 @@ func check_validity(target):
 
 func attack(target):
 	target.defend(self.power)
-	finished_action.emit()
 
 func defend(opponent_power):
 	if self.hitpoints - opponent_power <= 0:
+		print(self, " had ", hitpoints, " left and was defeated.")
 		self.hitpoints = 0
 		self.defeat()
 	else:
@@ -136,6 +135,8 @@ func end_turn():
 	current_colliders = {}
 	current_direction = ""
 	turn = false
+	# Without this line, the battling doesn't work as expected
+	await get_tree().create_timer(0.01).timeout
 	turn_done.emit()
 
 func get_pos() -> Vector2:
@@ -143,7 +144,3 @@ func get_pos() -> Vector2:
 
 func switch_pointer_visibility():
 	$Tile0103.visible = not $Tile0103.visible
-
-
-func _on_finished_action():
-	pass # Replace with function body.
