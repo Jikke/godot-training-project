@@ -449,3 +449,5 @@ layer_2/tile_data = PackedInt32Array()
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 position_smoothing_speed = 2.0
+
+[connection signal="battle_ended" from="TurnManager" to="." method="_on_turn_manager_battle_ended"]

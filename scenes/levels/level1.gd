@@ -59,3 +59,9 @@ func init_enemy_team() -> bool:
 
 func move_camera(position : Vector2):
 	$Camera2D.global_position = position
+
+
+func _on_turn_manager_battle_ended():
+	if $TurnManager.get_child(0):
+		print($TurnManager.get_child(0).get_groups()[0], " has won!")
+		Global.goto_scene("res://scenes/game_control.tscn")

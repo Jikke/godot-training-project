@@ -16,7 +16,7 @@ var merc_name : String = ""
 @export var power : int = 0
 
 var current_colliders : Dictionary = {}
-var current_direction : String = ""
+var current_input : String = ""
 
 signal started_moving
 signal finished_moving
@@ -41,26 +41,28 @@ func update_texture(texture_path) -> bool:
 
 func _input(event):
 	if turn:
+		if event.is_action_released("Spacebar") and !moving:
+			current_input = "pass"
 		if event.is_action_released("Up movement") and !moving:
-			current_direction = "up"
+			current_input = "up"
 		if event.is_action_released("Down movement") and !moving:
-			current_direction = "down"
+			current_input = "down"
 		if event.is_action_released("Left movement") and !moving:
-			current_direction = "left"
+			current_input = "left"
 		if event.is_action_released("Right movement") and !moving:
-			current_direction = "right"
-		if current_direction != "":
+			current_input = "right"
+		if current_input != "":
 			move_input_received.emit()
 
 func execute_action():
-	# Check if there's collider in current_direction
-	if current_direction in current_colliders:
-		var target = current_colliders[current_direction]
+	# Check if there's collider in current_input
+	if current_input in current_colliders:
+		var target = current_colliders[current_input]
 		if check_validity(target):
 			self.attack(target)
 	else:
 		# No colliders so movement is possible
-		self.set(current_direction, tile_size)
+		self.set(current_input, tile_size)
 		moving = true
 		started_moving.emit()
 
@@ -70,7 +72,8 @@ func play_turn():
 	# Check colliders before moving
 	self.current_colliders = self.get_collision_targets()
 	await move_input_received
-	execute_action()
+	if current_input != "pass":
+		execute_action()
 	if moving:
 		await finished_moving
 	end_turn()
@@ -110,7 +113,7 @@ func get_collision_targets() -> Dictionary:
 	return colliders
 
 func check_validity(target):
-	if ((target.is_in_group("enemy_team") and self.is_in_group("player_team"))
+	if target != null and ((target.is_in_group("enemy_team") and self.is_in_group("player_team"))
 	 or (target.is_in_group("player_team") and self.is_in_group("enemy_team"))):
 		return true
 	return false
@@ -133,7 +136,7 @@ func defeat():
 func end_turn():
 	self.switch_pointer_visibility()
 	current_colliders = {}
-	current_direction = ""
+	current_input = ""
 	turn = false
 	# Without this line, the battling doesn't work as expected
 	await get_tree().create_timer(0.01).timeout
