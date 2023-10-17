@@ -65,3 +65,4 @@ func _on_turn_manager_battle_ended():
 	if $TurnManager.get_child(0):
 		print($TurnManager.get_child(0).get_groups()[0], " has won!")
 		Global.goto_scene("res://scenes/game_control.tscn")
+		Global.ui.show_money()

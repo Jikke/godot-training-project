@@ -30,13 +30,13 @@ func _process(delta):
 	pass
 
 func wipe_game():
-	money = 0
+	update_money(0)
 	shop_content = []
 	current_team = []
 	pass
 
 func update_money(amount):
-	Global.money = amount
+	self.money = amount
 	ui.update_money_text(amount)
 
 func goto_scene(path):
@@ -84,6 +84,9 @@ func hire(shop_index):
 	# pop_at removes and returns value at index
 	var new_hire = shop_content.pop_at(shop_index)
 	current_team.append(new_hire)
+
+func fire(team_index):
+	current_team.pop_at(team_index)
 
 func save_data():
 	var data : Array = [money, shop_content, current_team]

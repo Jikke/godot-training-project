@@ -25,7 +25,7 @@ func _ready():
 func _process(delta):
 	pass
 
-func init(texture_path, name, hitpoints, attack, price = 0):
+func init(texture_path, name, price, hitpoints, attack):
 	update_texture(texture_path)
 	self.row_name = name
 	self.row_price = price

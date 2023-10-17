@@ -5,7 +5,8 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_gpw14")
 
-[node name="Control" type="Control" parent="."]
+[node name="Money" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -14,16 +15,32 @@ offset_left = -150.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Money"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Money-title" type="Label" parent="Control/HBoxContainer"]
+[node name="Money-title" type="Label" parent="Money/HBoxContainer"]
 layout_mode = 2
 text = "Money:"
 
-[node name="Money-amount" type="Label" parent="Control/HBoxContainer"]
+[node name="Money-amount" type="Label" parent="Money/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
+
+[node name="Run" type="Button" parent="."]
+visible = false
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+offset_top = -32.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Run"
+
+[connection signal="button_up" from="Run" to="." method="_on_run_button_up"]
+[connection signal="button_up" from="Run" to="." method="_on_button_button_up"]
