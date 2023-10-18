@@ -5,42 +5,48 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_gpw14")
 
-[node name="Money" type="Control" parent="."]
-visible = false
-layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -150.0
-offset_bottom = 40.0
-grow_horizontal = 0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 0)
+offset_left = 1002.0
+offset_right = 1152.0
+offset_bottom = 648.0
+alignment = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Money"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Money" type="Control" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/Money"]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+alignment = 2
 
-[node name="Money-title" type="Label" parent="Money/HBoxContainer"]
+[node name="Money-title" type="Label" parent="HBoxContainer/VBoxContainer/Money/HBoxContainer"]
 layout_mode = 2
 text = "Money:"
 
-[node name="Money-amount" type="Label" parent="Money/HBoxContainer"]
+[node name="Money-amount" type="Label" parent="HBoxContainer/VBoxContainer/Money/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "0"
 
-[node name="Run" type="Button" parent="."]
-visible = false
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -64.0
-offset_top = -32.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Run" type="Button" parent="HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
 text = "Run"
 
-[connection signal="button_up" from="Run" to="." method="_on_run_button_up"]
-[connection signal="button_up" from="Run" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/Run" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/Run" to="." method="_on_run_button_up"]

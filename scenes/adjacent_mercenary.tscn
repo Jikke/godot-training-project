@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://bb17hrgbayou0"]
+
+[ext_resource type="Script" path="res://scripts/adjacent_mercenary.gd" id="1_ll0mk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q7xvf"]
+bg_color = Color(0, 0.45098, 0, 0.705882)
+
+[node name="Adjacent Mercenary" type="Control"]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_ll0mk")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 53.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_q7xvf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Direction" type="Label" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+position = Vector2(10, 13)
+
+[node name="Hitpoints" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_alignment = 2
+
+[node name="Slash-mark" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "/"
+
+[node name="Max Health" type="Label" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

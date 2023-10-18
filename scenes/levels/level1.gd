@@ -22,15 +22,16 @@ func init_player_team() -> bool:
 	for merc in player_team:
 		var texture_path = merc[0]
 		var name = merc[1]
-		var hitpoints = merc[3]
+		var max_health = merc[3]
 		var power = merc[4]
 		var spawn_coordinate = player_spawn_coordinates[player_index]
 		var new_merc = merc_preload.instantiate()
-		new_merc.init(texture_path, name, hitpoints, power)
+		new_merc.init(texture_path, name, max_health, power)
 		new_merc.global_position = spawn_coordinate
 		new_merc.add_to_group("player_team")
 		$TurnManager.add_child(new_merc)
 		new_merc.turn_done.connect($TurnManager._on_turn_done)
+		new_merc.colliders_found.connect(Global.ui._on_colliders_found)
 		player_index += 1
 	if player_index > 0:
 		return true
@@ -43,15 +44,17 @@ func init_enemy_team() -> bool:
 	for merc in enemy_team:
 		var texture_path = merc[0]
 		var name = merc[1]
-		var hitpoints = merc[3]
+		var max_health = merc[3]
 		var power = merc[4]
 		var spawn_coordinate = enemy_spawn_coordinates[enemy_index]
 		var new_merc = merc_preload.instantiate()
-		new_merc.init(texture_path, name, hitpoints, power)
+		new_merc.init(texture_path, name, max_health, power)
+		new_merc.modulate_enemy_sprite()
 		new_merc.global_position = spawn_coordinate
 		new_merc.add_to_group("enemy_team")
 		$TurnManager.add_child(new_merc)
 		new_merc.turn_done.connect($TurnManager._on_turn_done)
+		new_merc.colliders_found.connect(Global.ui._on_colliders_found)
 		enemy_index += 1
 	if enemy_index > 0:
 		return true

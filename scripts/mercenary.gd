@@ -10,34 +10,40 @@ var right : int = 0
 var up : int = 0
 var down : int = 0
 
-@export var texture := load("res://icon.svg")
+@export var sprite := load("res://icon.svg")
 var merc_name : String = ""
-@export var hitpoints : int = 0
+@export var max_health : int = 0
+var hitpoints : int = 0
 @export var power : int = 0
 
 var current_colliders : Dictionary = {}
 var current_input : String = ""
 
+signal colliders_found(current_colliders, my_group)
 signal started_moving
 signal finished_moving
 signal move_input_received
 signal turn_done
 
 func _ready():
-	$TextureRect.texture = texture
+	$Sprite2D.texture = sprite
 
-func init(texture_path, merc_name, hitpoints, power):
+func init(texture_path, merc_name, max_health, power):
 	self.update_texture(texture_path)
 	self.merc_name = name
-	self.hitpoints = hitpoints
+	self.max_health = max_health
+	self.hitpoints = max_health
 	self.power = power
 
 func update_texture(texture_path) -> bool:
 	if FileAccess.file_exists(texture_path):
-		texture = load(texture_path)
-		$TextureRect.texture = texture
+		sprite = load(texture_path)
+		$Sprite2D.texture = sprite
 		return true
 	return false
+
+func modulate_enemy_sprite():
+	$Sprite2D.modulate = Color(1, 0.4, 0.5)
 
 func _input(event):
 	if turn:
@@ -54,26 +60,35 @@ func _input(event):
 		if current_input != "":
 			move_input_received.emit()
 
-func execute_action():
+func execute_action() -> bool:
 	# Check if there's collider in current_input
 	if current_input in current_colliders:
 		var target = current_colliders[current_input]
 		if check_validity(target):
 			self.attack(target)
+			return true
 	else:
 		# No colliders so movement is possible
 		self.set(current_input, tile_size)
 		moving = true
 		started_moving.emit()
+		return true
+	# No action was finished, return false
+	return false
 
 func play_turn():
 	turn = true
 	self.switch_pointer_visibility()
 	# Check colliders before moving
 	self.current_colliders = self.get_collision_targets()
-	await move_input_received
-	if current_input != "pass":
-		execute_action()
+	colliders_found.emit(current_colliders, self.get_groups()[0])
+	var action_finished = false
+	while !action_finished:
+		await move_input_received
+		if current_input != "pass":
+			action_finished = execute_action()
+		else: 
+			action_finished = true
 	if moving:
 		await finished_moving
 	end_turn()
@@ -102,14 +117,14 @@ func _on_started_moving():
 
 func get_collision_targets() -> Dictionary:
 	var colliders : Dictionary = {}
-	if $Up.is_colliding():
+	if $Up.is_colliding() and $Up.get_collider() != null:
 		colliders["up"] = $Up.get_collider()
-	if $Down.is_colliding():
-		colliders["down"] = $Down.get_collider()
-	if $Left.is_colliding():
-		colliders["left"] = $Left.get_collider()
-	if $Right.is_colliding():
+	if $Right.is_colliding() and $Right.get_collider() != null:
 		colliders["right"] = $Right.get_collider()
+	if $Down.is_colliding() and $Down.get_collider() != null:
+		colliders["down"] = $Down.get_collider()
+	if $Left.is_colliding() and $Left.get_collider() != null:
+		colliders["left"] = $Left.get_collider()
 	return colliders
 
 func check_validity(target):
@@ -123,15 +138,16 @@ func attack(target):
 
 func defend(opponent_power):
 	if self.hitpoints - opponent_power <= 0:
-		print(self, " had ", hitpoints, " left and was defeated.")
+		print(self, " had ", hitpoints, " left and got hit for ", opponent_power, " was defeated.")
 		self.hitpoints = 0
 		self.defeat()
 	else:
 		self.hitpoints -= opponent_power
-		print(self, " got hit for ", power, " and has ", hitpoints, " left!")
+		print(self, " got hit for ", opponent_power, " and has ", hitpoints, " left!")
 
 func defeat():
 	self.queue_free()
+	await get_tree().create_timer(0.01).timeout
 
 func end_turn():
 	self.switch_pointer_visibility()

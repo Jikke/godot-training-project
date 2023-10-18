@@ -33,7 +33,7 @@ func hire_mercs(selected_rows) -> void:
 		var merc_as_row = [row.row_texture.resource_path, 
 			row.row_name, 
 			row.row_price, 
-			row.row_hitpoints, 
+			row.row_max_health, 
 			row.row_attack]
 		var shop_index = Global.shop_content.find(merc_as_row)
 		Global.hire(shop_index)

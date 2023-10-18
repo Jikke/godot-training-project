@@ -23,10 +23,10 @@ func populate_shop():
 		var texture_path = row[0]
 		var name = row[1]
 		var price = row[2]
-		var hitpoints = row[3]
+		var max_health = row[3]
 		var attack = row[4]
 		var new_row = row_preload.instantiate()
-		new_row.init(texture_path, name, price, hitpoints, attack)
+		new_row.init(texture_path, name, price, max_health, attack)
 		new_row.row_selected.connect(_on_row_selected)
 		$PanelContainer/VBoxContainer/ScrollContainer/Hires.add_child(new_row)
 
@@ -35,10 +35,10 @@ func populate_team():
 		var texture_path = row[0]
 		var name = row[1]
 		var price = row[2]
-		var hitpoints = row[3]
+		var max_health = row[3]
 		var attack = row[4]
 		var new_row = row_preload.instantiate()
-		new_row.init(texture_path, name, price, hitpoints, attack)
+		new_row.init(texture_path, name, price, max_health, attack)
 		new_row.row_selected.connect(_on_row_selected)
 		new_row.hide_price()
 		$PanelContainer/VBoxContainer/ScrollContainer/Hires.add_child(new_row)

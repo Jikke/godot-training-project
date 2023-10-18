@@ -4,7 +4,7 @@ extends Control
 var row_texture = null
 @export var row_name: String = ""
 @export var row_price: int = 0
-@export var row_hitpoints: int = 0
+@export var row_max_health: int = 0
 @export var row_attack: int = 0
 
 var selected : bool = false
@@ -18,18 +18,18 @@ func _ready():
 	$HBoxContainer/TextureRect.texture = row_texture
 	$HBoxContainer/Name.text = row_name
 	$HBoxContainer/Price.text = str(row_price)
-	$HBoxContainer/Hitpoints.text = str(row_hitpoints)
+	$HBoxContainer/Max_health.text = str(row_max_health)
 	$HBoxContainer/Attack.text = str(row_attack)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
 
-func init(texture_path, name, price, hitpoints, attack):
+func init(texture_path, name, price, max_health, attack):
 	update_texture(texture_path)
 	self.row_name = name
 	self.row_price = price
-	self.row_hitpoints = hitpoints
+	self.row_max_health = max_health
 	self.row_attack = attack
 
 func update_texture(texture_path) -> bool:

@@ -1,6 +1,6 @@
 extends Node
 
-var save_path = "user://savefie.save"
+var save_path = "user://savefile.save"
 var current_scene = null
 var money: int = 0
 const character_sprite_paths : Array = [
@@ -15,7 +15,6 @@ const character_sprite_paths : Array = [
 	"res://assets/Tiles/tile_0100.png"
 	]
 var shop_content : Array = []
-# SELVITÄ MITEN SKRIPTI PRELOADATAAN SEN FUNKTIOIDEN KÄYTTÖÄ VARTEN
 var name_generator = preload("res://scripts/name-generator.gd").new()
 var current_team : Array = []
 @onready var ui = get_node("/root/Ui")
@@ -23,7 +22,6 @@ var current_team : Array = []
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
