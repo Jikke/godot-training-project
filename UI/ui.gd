@@ -2,13 +2,10 @@ extends CanvasLayer
 
 var adj_merc_preload = preload("res://scenes/adjacent_mercenary.tscn")
 
-# HIDE ADJ MERC MYÖS TAPPELUN JÄLKEEN. HOIDA SE MUUTENKIN LOPPUUN!
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hide_money()
 	hide_run_button()
-#	hide_adj_merc()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

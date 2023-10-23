@@ -3,6 +3,7 @@ extends Node2D
 class_name TurnManager
 
 var active_character
+@onready var level = $".."
 signal battle_ended
 
 func init():
@@ -17,12 +18,12 @@ func _on_turn_done():
 		battle_ended.emit()
 	update_next_active_character()
 	var active_char_pos = active_character.get_pos()
-	$"..".move_camera(active_char_pos)
+	level.move_camera(active_char_pos)
 	active_character.play_turn()
 
 func start_battle():
 	var first_char_pos = active_character.get_pos()
-	$"..".move_camera(first_char_pos)
+	level.move_camera(first_char_pos)
 	active_character.play_turn()
 
 func battle_finished() -> bool:
